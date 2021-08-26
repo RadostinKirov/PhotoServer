@@ -144,26 +144,15 @@ router.post('/delete/:id', async (req, res) => {
 });
 
 router.get('/recent', async (req, res) => {
-    //console.log('recent entered')
+    console.log('recent entered')
     let photos = await req.storage.getAllPhotos();
-    console.log('before sort');
-
-    for (const line of photos) {
-        console.log(line.createdAt);
-    }
-
-    sortedPhotos = photos.sort((a, b) => {
-
-        return a.createdAt.localeCompare(b.createdAt)
+    
+    photos.sort((b, a) => {
+        let dateA = a.createdAt.slice(3);
+        let dateB = b.createdAt.slice(3);
+        return dateA.localeCompare(dateB)
     }
     );
-
-    console.log('after sort');
-
-    for (const line of sortedPhotos) {
-        console.log(line.createdAt);
-    }
-
     res.status(200).send(photos);
 });
 
