@@ -16,6 +16,7 @@ async function createPhoto(dataPhoto) {
 
 async function getAllPhotos() {
     const photos = await Photo.find({}).lean();
+    console.log('all photos requested')
     return photos;
 };
 

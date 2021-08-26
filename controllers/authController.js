@@ -91,7 +91,8 @@ router.get('/logout', async (req, res) => {
         console.log(err.message);
         res.render('/');                    //TODO change according project requirements
     }
-})
+});
+
 
 
 module.exports = router;

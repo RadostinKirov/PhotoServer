@@ -153,25 +153,34 @@ router.get('/recent', async (req, res) => {
     }
 
     sortedPhotos = photos.sort((a, b) => {
-     
-         return a.createdAt.localeCompare(b.createdAt)
+
+        return a.createdAt.localeCompare(b.createdAt)
     }
-        );
+    );
 
     console.log('after sort');
 
-for (const line of sortedPhotos) {
-    console.log(line.createdAt);
-}
+    for (const line of sortedPhotos) {
+        console.log(line.createdAt);
+    }
 
-res.status(200).send(photos);
+    res.status(200).send(photos);
 });
 
 router.get('/mostLiked', async (req, res) => {
     let photos = await req.storage.getAllPhotos();
 
-    photos = photos.sort((a,b) => b.likes - a.likes);
+    photos = photos.sort((a, b) => b.likes - a.likes);
     res.status(200).send(photos)
+});
+
+
+router.post('/profilePhotos/:id', async (req, res) => {
+    console.log('profilePhotos get');
+    const userId = req.body.userId;
+    let photos = await req.storage.getAllPhotos();
+    photos = photos.filter(photo => photo.owner == userId);
+    res.status(200).send(photos);
 })
 
 
